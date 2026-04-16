@@ -353,24 +353,28 @@
 
         <div class="kpi-row">
             <div class="kpi-card" style="border-right: 4px solid var(--primary);">
-                <label>إجمالي المؤسسات</label>
-                <span>1,730</span>
+                <label>إجمالي الأساتذة المتربصين</label>
+                <span>3,327</span>
             </div>
             <div class="kpi-card" style="border-right: 4px solid #8e44ad;">
-                <label>إجمالي الموظفين</label>
-                <span style="color: #8e44ad;">82,049</span>
+                <label>عدد المعاهد الوطنية</label>
+                <span style="color: #8e44ad;">6</span>
             </div>
-            <div class="kpi-card" style="border-right: 4px solid #2980b9;">
-                <label>ذكور (55%)</label>
-                <span style="color: #2980b9;">45,106</span>
+            <div class="kpi-card" style="border-right: 4px solid #1abc9c;">
+                <label>التكوين التكميلي - دورة جانفي</label>
+                <span style="color: #1abc9c;">323</span>
+            </div>
+            <div class="kpi-card" style="border-right: 4px solid #e67e22;">
+                <label>التكوين التكميلي - دورة مارس</label>
+                <span style="color: #e67e22;">204</span>
             </div>
             <div class="kpi-card" style="border-right: 4px solid #e74c3c;">
-                <label>إناث (45%)</label>
-                <span style="color: #e74c3c;">36,943</span>
+                <label>إجمالي التكوين التكميلي</label>
+                <span style="color: #e74c3c;">527</span>
             </div>
-            <div class="kpi-card" style="border-right: 4px solid var(--warning);">
-                <label>ذوو الاحتياجات الخاصة</label>
-                <span style="color: var(--warning);">442</span>
+            <div class="kpi-card" style="border-right: 4px solid #2980b9;">
+                <label>الأساتذة المتكونين (مخطط الولايات)</label>
+                <span style="color: #2980b9;">470</span>
             </div>
         </div>
 
@@ -788,10 +792,18 @@
     </script>
 
     <!-- التكوين التكميلي ماقبل الترقية دورة جانفي 2026 -->
-    <div class="panel" style="margin-top:25px; margin-bottom:20px;">
-        <h2>التكوين التكميلي ماقبل الترقية - دورة جانفي 2026</h2>
-        <div class="chart-container" style="height:350px; display:flex; justify-content:center; align-items:center;">
-            <canvas id="promotionDoughnut"></canvas>
+    <div class="chart-row" style="margin-top:25px; margin-bottom:20px;">
+        <div class="panel">
+            <h2>التكوين التكميلي ماقبل الترقية - دورة جانفي 2026 (حسب المعهد)</h2>
+            <div class="chart-container" style="height:350px; display:flex; justify-content:center; align-items:center;">
+                <canvas id="promotionDoughnut"></canvas>
+            </div>
+        </div>
+        <div class="panel">
+            <h2>التكوين التكميلي ماقبل الترقية - دورة جانفي 2026 (حسب التخصص)</h2>
+            <div class="chart-container" style="height:400px; display:flex; justify-content:center; align-items:center;">
+                <canvas id="promotionSpecDoughnut"></canvas>
+            </div>
         </div>
     </div>
     <script>
@@ -828,6 +840,152 @@
                                 let total = context.dataset.data.reduce((a, b) => a + b, 0);
                                 let percentage = ((context.raw / total) * 100).toFixed(1);
                                 return context.label + ': ' + context.raw + ' (' + percentage + '%)';
+                            }
+                        }
+                    }
+                }
+            }
+        });
+
+        const ctxPromoSpec = document.getElementById('promotionSpecDoughnut').getContext('2d');
+        new Chart(ctxPromoSpec, {
+            type: 'doughnut',
+            data: {
+                labels: [
+                    'الكهرباء-الإلكترونيك-طاقوية', 'إعلام آلي-الرقمنة-الإتصالات',
+                    'النسيج و الألبسة', 'البناء و الأشغال العمومية',
+                    'تقنيات الإدارة و التسيير', 'فندقة-الإطعام و السياحة',
+                    'الحرف التقليدية', 'مهن الخدمات',
+                    'الإنشاءات الميكانيكية و الصناعة الحديدية', 'الفلاحة/إنتاج نباتي',
+                    'الإنشاءات المعدنية', 'الفلاحة/إنتاج حيواني',
+                    'الخشب و التأثيث', 'مهن المياه و البيئة',
+                    'ميكانيك المحركات و الآليات', 'الصناعة الجلدية',
+                    'الكيمياء الصناعية و البلاستيك', 'صناعة الأغذية الزراعية',
+                    'الصناعات النفطية', 'تقنيات السمعي البصري',
+                    'الصيد البحري و تربية المائيات', 'مهن البيئة و النظافة'
+                ],
+                datasets: [{
+                    data: [53, 51, 36, 32, 31, 26, 16, 15, 13, 10, 9, 8, 6, 3, 3, 3, 2, 2, 1, 1, 1, 1],
+                    backgroundColor: [
+                        '#185FA5', '#1abc9c', '#e74c3c', '#3498db', '#e67e22', '#9b59b6',
+                        '#27ae60', '#f39c12', '#2c3e50', '#16a085', '#c0392b', '#8e44ad',
+                        '#d35400', '#2980b9', '#1e8449', '#7d3c98', '#cb4335', '#138d75',
+                        '#b7950b', '#6c3483', '#1a5276', '#95a5a6'
+                    ],
+                    borderWidth: 2,
+                    borderColor: '#fff'
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: {
+                        position: 'bottom',
+                        rtl: true,
+                        labels: {
+                            font: { size: 10, family: 'Segoe UI' },
+                            padding: 8,
+                            usePointStyle: true,
+                            pointStyle: 'circle'
+                        }
+                    },
+                    tooltip: {
+                        rtl: true,
+                        callbacks: {
+                            label: function (context) {
+                                let total = context.dataset.data.reduce((a, b) => a + b, 0);
+                                let percentage = ((context.raw / total) * 100).toFixed(1);
+                                return context.label + ': ' + context.raw + ' (' + percentage + '%)';
+                            }
+                        }
+                    }
+                }
+            }
+        });
+    </script>
+
+    <!-- التكوين التكميلي ماقبل الترقية دورة مارس 2026 -->
+    <div class="chart-row" style="margin-top:25px; margin-bottom:20px;">
+        <div class="panel">
+            <h2>التكوين التكميلي ماقبل الترقية - دورة مارس 2026 (دائرة)</h2>
+            <div class="chart-container" style="height:350px; display:flex; justify-content:center; align-items:center;">
+                <canvas id="marchDoughnut"></canvas>
+            </div>
+        </div>
+        <div class="panel">
+            <h2>التكوين التكميلي ماقبل الترقية - دورة مارس 2026 (أعمدة)</h2>
+            <div class="chart-container" style="height:350px; display:flex; justify-content:center; align-items:center;">
+                <canvas id="marchBarChart"></canvas>
+            </div>
+        </div>
+    </div>
+    <script>
+        const ctxMarchD = document.getElementById('marchDoughnut').getContext('2d');
+        new Chart(ctxMarchD, {
+            type: 'doughnut',
+            data: {
+                labels: ['نائب مقتصد رئيسي', 'مساعد تقني وبيداغوجي', 'نائب مقتصد', 'مراقب عام'],
+                datasets: [{
+                    data: [147, 45, 11, 1],
+                    backgroundColor: ['#185FA5', '#1abc9c', '#e67e22', '#e74c3c'],
+                    borderWidth: 2,
+                    borderColor: '#fff'
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: {
+                        position: 'bottom', rtl: true,
+                        labels: { font: { size: 13, family: 'Segoe UI' }, padding: 15, usePointStyle: true, pointStyle: 'circle' }
+                    },
+                    tooltip: {
+                        rtl: true,
+                        callbacks: {
+                            label: function (ctx) {
+                                let total = ctx.dataset.data.reduce((a, b) => a + b, 0);
+                                let pct = ((ctx.raw / total) * 100).toFixed(1);
+                                return ctx.label + ': ' + ctx.raw + ' (' + pct + '%)';
+                            }
+                        }
+                    }
+                }
+            }
+        });
+
+        const ctxMarchBar = document.getElementById('marchBarChart').getContext('2d');
+        new Chart(ctxMarchBar, {
+            type: 'bar',
+            data: {
+                labels: ['نائب مقتصد رئيسي', 'مساعد تقني وبيداغوجي', 'نائب مقتصد', 'مراقب عام'],
+                datasets: [{
+                    label: 'العدد',
+                    data: [147, 45, 11, 1],
+                    backgroundColor: ['#185FA5', '#1abc9c', '#e67e22', '#e74c3c'],
+                    borderColor: '#fff',
+                    borderWidth: 1,
+                    borderRadius: 6
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                indexAxis: 'y',
+                scales: {
+                    x: { beginAtZero: true, grid: { color: '#f0f0f0' } },
+                    y: { grid: { display: false } }
+                },
+                plugins: {
+                    legend: { display: false },
+                    tooltip: {
+                        rtl: true,
+                        callbacks: {
+                            label: function (ctx) {
+                                let total = 204;
+                                let pct = ((ctx.raw / total) * 100).toFixed(1);
+                                return ctx.label + ': ' + ctx.raw + ' (' + pct + '%)';
                             }
                         }
                     }
@@ -960,6 +1118,77 @@
 
 
 
+    <!-- قسم المعلومات التفصيلية -->
+    <div class="panel" style="margin-top:25px; margin-bottom:20px; line-height:2; font-size:15px; text-align:right;">
+
+        <h2 style="border-right:4px solid #185FA5; padding-right:12px; margin-bottom:20px;">المقابلاتية :</h2>
+
+        <p style="margin-bottom:10px;">
+            - تكوين جميع مستشاري التوجيه التقييم و الإدماج المهني الموزعين عبر كامل التراب الوطني في مجال المقابلاتية في الفترة الممتدة من 10 إلى 16 مارس 2026 ببقية المقاطعات الحاضرة المرنى من بعد.
+        </p>
+        <p style="margin-bottom:10px;">
+            - نظرا لتحيين البرنامج الخاص بالمقابلاتية سيستفيد 10 مكونين من التكوين من القطاع مع المكتب الدولي للعمل في الفترة الممتدة من 25 أفريل إلى 04 ماي.
+        </p>
+        <p style="margin-bottom:10px;">
+            المدربين موزعين كالتالي : عنابة ، قسنطينة ، سطيف، ورقلة، المدية، الجزائر، تيزي وزو، وهران، سيدي بلعباس، بشار
+        </p>
+        <p style="margin-bottom:10px;">
+            - الإنطلاق في تكوين مراكز تطوير المقابلاتية وكذا المكونين حول البرنامج الجديد إبتداءا من النصف الثاني من شهر ماي إلى غاية الإنتهاء من السنة.
+        </p>
+        <p style="margin-bottom:20px;">
+            - تكوين أساتذة شعبة تقنيات الإدارة و التسيير و الذين التزموا بإدراج إختصاصاتهم في مجال المقابلاتية.
+        </p>
+
+        <p style="margin-bottom:10px;">
+            <strong>2- التكوين حول البرنامج الجديد الخاص بالتكوين البيداغوجي الحضوري :</strong> حيث سيتم تكوين أساتذة التكوين البيداغوجي التابعين لمعاهد التكوين و التعليم المهنيين و كذا بعض المكونين الجدد حول البرنامج الحضوري الجديد الخاص بالتكوين البيداغوجي الحضوري الخاص بالمراسيم الوزارية رقم 35 و 34 تلك بعد الإمضاء على القرار على أن يتم وضع هذا البرنامج كبرنامج تكويني جديد إبتداءا من الدخول التكويني الجديد.
+        </p>
+
+        <p style="margin-bottom:20px;">
+            <strong>3- التكوين حول المرجع الوطني للتكوينات و الكفاءات (RNFC):</strong>
+        </p>
+        <p style="padding-right:20px; margin-bottom:8px;">
+            <strong>المرحلة الأولى</strong> سيتم من خلالها تكوين المدراء الولائيين و رؤساء المصالح البيداغوجية على مستوى المديريات الولائية.
+        </p>
+        <p style="padding-right:20px; margin-bottom:20px;">
+            <strong>المرحلة الثانية</strong> سيتم من خلالها تكوين مدراء المعاهد المتخصصة في التكوين و التعليم المهنيين و رؤساء المصالح البيداغوجية على مستوى المعاهد ورؤساء المعاهد.
+        </p>
+
+        <p style="margin-bottom:10px;">
+            <strong>4- إتفاق الشراكة مع قطاع السياحة :</strong> بموجب إتفاق الشراكة المبرمة بين قطاعنا و قطاع السياحة و الصناعات التقليدية سيتم تكوين 1160 من حرفيي غرف الصناعات التقليدية الموزعين عبر 58 ولاية و هذا في الفترة الممتدة من 19 إلى 30 أفريل 2026 يهدف هذا التكوين إلى تلقين و تطوير مهارات هؤلاء الحرفيين من أجل المشاركة الفعالة في المعارض الدولية.
+        </p>
+
+        <p style="margin-bottom:10px;">
+            <strong>5- إتفاق الشراكة مع صندوق الأمم المتحدة لإغاثة الطفولة UNICEF:</strong> بموجب إتفاق الشراكة مع صندوق الأمم المتحدة لإغاثة الطفولة UNICEF تم تكوين 40 إطار من قطاعنا في موضوع السيرة المبنى على النتائج GAR كانوا موزعين كالآتي :
+        </p>
+        <ul style="padding-right:30px; margin-bottom:20px; list-style:disc;">
+            <li><strong>12 إطار من المفتشية العامة</strong></li>
+            <li><strong>14 إطار من الإدارة المركزية</strong></li>
+            <li><strong>09 مدراء معاهد متخصصة</strong></li>
+            <li><strong>06 إطارات من المعهد الوطني للتكوين و التعليم المهنيين</strong></li>
+        </ul>
+
+        <hr style="margin:30px 0; border:1px solid #edf2f7;">
+
+        <h2 style="border-right:4px solid #185FA5; padding-right:12px; margin-bottom:20px;">المقترحات</h2>
+
+        <ol style="padding-right:25px; margin-bottom:20px; line-height:2.2;">
+            <li style="margin-bottom:12px;">
+                <strong>دورة تكوينية (SketchUp Pro) :</strong> برنامج SketchUp هو برنامج قوي وسهل التعلم للرسم ثلاثي الأبعاد يقدم البرنامج مجموعة أدوات مرنة وشاملة حاضرة عن الحي من الجزائر.
+                <br><strong>الفئة المستهدفة :</strong> مكوني الشعب التالية :
+                <br><em>ART, BTP, AIG, INT, AGR option paysagisme, HTC option — Stylisme modélisme — (Technique du craquelé en céramique)</em>
+            </li>
+            <li style="margin-bottom:12px;">
+                <strong>دورة تكوينية في تقنية السيراميك المشقق :</strong> مكوني شعبة الحرف التقليدية
+            </li>
+            <li style="margin-bottom:12px;">
+                <strong>تكوين Haccp Audit :</strong> يُعدّ نظام تحليل المخاطر ونقاط التحكم الحرجة (HACCP) في الجزائر نظاماً منهجياً لمراقبة سلامة الأغذية، وقد أصبح إلزامياً لشركات الأغذية الزراعية وفقاً للمرسوم التنفيذي رقم 140-17.
+            </li>
+            <li style="margin-bottom:12px;">
+                بالنسبة للمعايير الصنفية:
+                <br>إقتراح تكوينات قصيرة المدة (2-3 أيام) <strong>master class</strong> في المواضيع التالية :
+                <br>- Chocolaterie - confiserie - glacerie.
+            </li>
+        </ol>
     </div>
 
 </body>
