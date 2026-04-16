@@ -314,6 +314,8 @@
             }
         }
     </style>
+    <!-- استدعاء مكتبة الجداول والمخططات -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 
 <body>
@@ -375,6 +377,310 @@
 
 
 
+    </div>
+    </div>
+
+    <!-- الرسم البياني الخطي: الجدول الزمني للتدريب -->
+    <div class="panel" style="margin-top:25px; margin-bottom:30px;">
+        <h2>الجدول الزمني للتدريب (ماي - ديسمبر 2026)</h2>
+        <div class="chart-container" style="height:350px;">
+            <canvas id="timelineLineChart"></canvas>
+        </div>
+    </div>
+    <script>
+        const ctxTimeline = document.getElementById('timelineLineChart').getContext('2d');
+        new Chart(ctxTimeline, {
+            type: 'line',
+            data: {
+                labels: ['ماي', 'جوان', 'أكتوبر', 'أكتوبر - ديسمبر', 'نوفمبر', 'ديسمبر'],
+                datasets: [{
+                    label: 'عدد المتدربين',
+                    data: [50, 230, 150, 150, 150, 60],
+                    borderColor: '#185FA5',
+                    backgroundColor: 'rgba(24, 95, 165, 0.2)',
+                    borderWidth: 3,
+                    pointBackgroundColor: '#e67e22',
+                    pointBorderColor: '#fff',
+                    pointBorderWidth: 2,
+                    pointRadius: 6,
+                    pointHoverRadius: 8,
+                    fill: true,
+                    tension: 0.4
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                scales: {
+                    x: {
+                        grid: { display: false }
+                    },
+                    y: {
+                        beginAtZero: true,
+                        grid: { color: '#f0f0f0' },
+                        title: { display: true, text: 'العدد المحتمل', font: {family: 'Segoe UI'} }
+                    }
+                },
+                plugins: {
+                    legend: { display: false },
+                    tooltip: {
+                        rtl: true,
+                        titleFont: { family: 'Segoe UI', size: 14 },
+                        bodyFont: { family: 'Segoe UI', size: 13 },
+                        callbacks: {
+                            label: function(ctx) {
+                                return 'العدد: ' + ctx.raw;
+                            }
+                        }
+                    }
+                }
+            }
+        });
+    </script>
+
+    <!-- جدول البرمجة -->
+    <div class="panel" style="margin-top:25px; margin-bottom:30px; overflow-x:auto;">
+        <h2 style="text-align:center; font-size:20px; margin-bottom:16px;">جدول البرمجة - تجديد المعارف وتحسين المستوى 2026</h2>
+        <table style="width:100%; border-collapse:collapse; font-family:'Segoe UI', sans-serif; font-size:14px; text-align:center; direction:rtl;">
+            <thead>
+                <tr style="background: linear-gradient(135deg, #185FA5, #2980b9); color:#fff;">
+                    <th style="padding:13px 14px; border:1px solid #1a6ab5; white-space:nowrap;">الشهر (2026)</th>
+                    <th style="padding:13px 14px; border:1px solid #1a6ab5;">الفئة المستهدفة</th>
+                    <th style="padding:13px 14px; border:1px solid #1a6ab5;">الموضوع / المحور</th>
+                    <th style="padding:13px 14px; border:1px solid #1a6ab5; white-space:nowrap;">العدد</th>
+                    <th style="padding:13px 14px; border:1px solid #1a6ab5;">المكان</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- ماي -->
+                <tr style="background:#f8faff;">
+                    <td style="padding:13px 14px; border:1px solid #dde4f0; font-weight:bold; color:#185FA5; white-space:nowrap;">ماي</td>
+                    <td style="padding:13px 14px; border:1px solid #dde4f0; font-weight:600; text-align:right;">فئة المتصرفين</td>
+                    <td style="padding:13px 14px; border:1px solid #dde4f0; text-align:right;">الإعلام والرقمنة + اللغة الإنجليزية</td>
+                    <td style="padding:13px 14px; border:1px solid #dde4f0; font-weight:bold; color:#27ae60;">50</td>
+                    <td style="padding:13px 14px; border:1px solid #dde4f0;">معهد الأبيار</td>
+                </tr>
+                <!-- جوان x4 -->
+                <tr style="background:#eef3fb;">
+                    <td rowspan="4" style="padding:13px 14px; border:1px solid #dde4f0; font-weight:bold; color:#185FA5; white-space:nowrap; vertical-align:middle;">جوان</td>
+                    <td style="padding:13px 14px; border:1px solid #dde4f0; font-weight:600; text-align:right;">مدراء المعاهد والمراكز</td>
+                    <td style="padding:13px 14px; border:1px solid #dde4f0; text-align:right;">التسيير البيداغوجي والإداري، الموارد البشرية، الميزانية، اللغة الإنجليزية</td>
+                    <td style="padding:13px 14px; border:1px solid #dde4f0; font-weight:bold; color:#27ae60;">150</td>
+                    <td style="padding:13px 14px; border:1px solid #dde4f0;">معهد الأبيار</td>
+                </tr>
+                <tr style="background:#f8faff;">
+                    <td style="padding:13px 14px; border:1px solid #dde4f0; font-weight:600; text-align:right;">رؤساء المكاتب (الإدارة المركزية)</td>
+                    <td style="padding:13px 14px; border:1px solid #dde4f0; text-align:right;">المقاولاتية + اللغة الإنجليزية</td>
+                    <td style="padding:13px 14px; border:1px solid #dde4f0; font-weight:bold; color:#27ae60;">40</td>
+                    <td style="padding:13px 14px; border:1px solid #dde4f0;">معهد الأبيار</td>
+                </tr>
+                <tr style="background:#eef3fb;">
+                    <td style="padding:13px 14px; border:1px solid #dde4f0; font-weight:600; text-align:right;">المدراء المركزيون</td>
+                    <td style="padding:13px 14px; border:1px solid #dde4f0; text-align:right;">اللغة الإنجليزية (حصتين أسبوعياً لمدة شهرين)</td>
+                    <td style="padding:13px 14px; border:1px solid #dde4f0; font-weight:bold; color:#27ae60;">20</td>
+                    <td style="padding:13px 14px; border:1px solid #dde4f0;">مدرج الوزارة</td>
+                </tr>
+                <tr style="background:#f8faff;">
+                    <td style="padding:13px 14px; border:1px solid #dde4f0; font-weight:600; text-align:right;">أعوان الأمن والحراسة</td>
+                    <td style="padding:13px 14px; border:1px solid #dde4f0; text-align:right;">التواصل الفعال في التعامل مع الزوار</td>
+                    <td style="padding:13px 14px; border:1px solid #dde4f0; font-weight:bold; color:#27ae60;">20</td>
+                    <td style="padding:13px 14px; border:1px solid #dde4f0;">معهد الأبيار</td>
+                </tr>
+                <!-- أكتوبر x2 -->
+                <tr style="background:#eef3fb;">
+                    <td rowspan="2" style="padding:13px 14px; border:1px solid #dde4f0; font-weight:bold; color:#185FA5; white-space:nowrap; vertical-align:middle;">أكتوبر</td>
+                    <td style="padding:13px 14px; border:1px solid #dde4f0; font-weight:600; text-align:right;">رؤساء مصالح الميزانية والمحاسبة</td>
+                    <td style="padding:13px 14px; border:1px solid #dde4f0; text-align:right;">التسيير المالي، الميزانية (القانون 15-18)</td>
+                    <td style="padding:13px 14px; border:1px solid #dde4f0; font-weight:bold; color:#27ae60;">150</td>
+                    <td style="padding:13px 14px; border:1px solid #dde4f0;">معهد الأبيار</td>
+                </tr>
+                <tr style="background:#f8faff;">
+                    <td style="padding:13px 14px; border:1px solid #dde4f0; font-weight:600; text-align:right;">أعوان الأمن والحراسة</td>
+                    <td style="padding:13px 14px; border:1px solid #dde4f0; text-align:right;">التواصل الفعال (لمدة أسبوع)</td>
+                    <td style="padding:13px 14px; border:1px solid #dde4f0; color:#888;">—</td>
+                    <td style="padding:13px 14px; border:1px solid #dde4f0;">معهد الأبيار</td>
+                </tr>
+                <!-- أكتوبر - ديسمبر -->
+                <tr style="background:#eef3fb;">
+                    <td style="padding:13px 14px; border:1px solid #dde4f0; font-weight:bold; color:#185FA5; white-space:nowrap;">أكتوبر - ديسمبر</td>
+                    <td style="padding:13px 14px; border:1px solid #dde4f0; font-weight:600; text-align:right;">إداريو الإدارة المركزية</td>
+                    <td style="padding:13px 14px; border:1px solid #dde4f0; text-align:right;">مناجمنت الموارد البشرية (يوم أسبوعياً)</td>
+                    <td style="padding:13px 14px; border:1px solid #dde4f0; font-weight:bold; color:#27ae60;">150</td>
+                    <td style="padding:13px 14px; border:1px solid #dde4f0;">معهد الأبيار</td>
+                </tr>
+                <!-- نوفمبر -->
+                <tr style="background:#f8faff;">
+                    <td style="padding:13px 14px; border:1px solid #dde4f0; font-weight:bold; color:#185FA5; white-space:nowrap;">نوفمبر</td>
+                    <td style="padding:13px 14px; border:1px solid #dde4f0; font-weight:600; text-align:right;">مقتصد مسير / مدراء فرعيون</td>
+                    <td style="padding:13px 14px; border:1px solid #dde4f0; text-align:right;">إدارة مشروع مؤسسة، تسيير الممتلكات، الأداء المبني على النتائج</td>
+                    <td style="padding:13px 14px; border:1px solid #dde4f0; font-weight:bold; color:#27ae60;">150</td>
+                    <td style="padding:13px 14px; border:1px solid #dde4f0;">معهد الأبيار</td>
+                </tr>
+                <!-- نوفمبر - ديسمبر -->
+                <tr style="background:#eef3fb;">
+                    <td style="padding:13px 14px; border:1px solid #dde4f0; font-weight:bold; color:#185FA5; white-space:nowrap;">نوفمبر - ديسمبر</td>
+                    <td style="padding:13px 14px; border:1px solid #dde4f0; font-weight:600; color:#9b59b6; text-align:right;">(تكوين خاص)</td>
+                    <td style="padding:13px 14px; border:1px solid #dde4f0; text-align:right;">الذكاء الاصطناعي (حصتين أسبوعياً)</td>
+                    <td style="padding:13px 14px; border:1px solid #dde4f0; color:#888;">—</td>
+                    <td style="padding:13px 14px; border:1px solid #dde4f0; color:#888;">—</td>
+                </tr>
+                <!-- ديسمبر -->
+                <tr style="background:#f8faff;">
+                    <td style="padding:13px 14px; border:1px solid #dde4f0; font-weight:bold; color:#185FA5; white-space:nowrap;">ديسمبر</td>
+                    <td style="padding:13px 14px; border:1px solid #dde4f0; font-weight:600; text-align:right;">رؤساء المكاتب وإطارات المركزية</td>
+                    <td style="padding:13px 14px; border:1px solid #dde4f0; text-align:right;">التسيير المبني على النتائج</td>
+                    <td style="padding:13px 14px; border:1px solid #dde4f0; font-weight:bold; color:#27ae60;">60</td>
+                    <td style="padding:13px 14px; border:1px solid #dde4f0;">معهد بئر خادم</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <!-- جدول + دائرة: الفئة الوظيفية المستهدفة 2026 -->
+    <div style="display:flex; flex-wrap:wrap; gap:20px; margin-bottom:30px;">
+        <!-- الجدول -->
+        <div class="panel" style="flex:1; min-width:300px; overflow-x:auto;">
+            <h2>الفئة الوظيفية المستهدفة 2026</h2>
+            <table style="width:100%; border-collapse:collapse; font-family:'Segoe UI', sans-serif; font-size:14px; text-align:center; direction:rtl; margin-top:14px;">
+                <thead>
+                    <tr style="background: linear-gradient(135deg, #185FA5, #2980b9); color:#fff;">
+                        <th style="padding:13px 12px; border:1px solid #1a6ab5;">الفئة الوظيفية</th>
+                        <th style="padding:13px 12px; border:1px solid #1a6ab5;">العدد المستهدف</th>
+                        <th style="padding:13px 12px; border:1px solid #1a6ab5;">النسبة</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr style="background:#f8faff;">
+                        <td style="padding:14px 12px; border:1px solid #dde4f0; text-align:right;">مدراء المعاهد والمراكز والمقتصدون</td>
+                        <td style="padding:14px 12px; border:1px solid #dde4f0; font-weight:bold; font-size:18px; color:#185FA5;">450</td>
+                        <td style="padding:14px 12px; border:1px solid #dde4f0; color:#666;">50.5%</td>
+                    </tr>
+                    <tr style="background:#eef3fb;">
+                        <td style="padding:14px 12px; border:1px solid #dde4f0; text-align:right;">إداريو الإدارة المركزية (مختلف الرتب)</td>
+                        <td style="padding:14px 12px; border:1px solid #dde4f0; font-weight:bold; font-size:18px; color:#1abc9c;">250</td>
+                        <td style="padding:14px 12px; border:1px solid #dde4f0; color:#666;">28.1%</td>
+                    </tr>
+                    <tr style="background:#f8faff;">
+                        <td style="padding:14px 12px; border:1px solid #dde4f0; text-align:right;">رؤساء المكاتب</td>
+                        <td style="padding:14px 12px; border:1px solid #dde4f0; font-weight:bold; font-size:18px; color:#e67e22;">100</td>
+                        <td style="padding:14px 12px; border:1px solid #dde4f0; color:#666;">11.2%</td>
+                    </tr>
+                    <tr style="background:#eef3fb;">
+                        <td style="padding:14px 12px; border:1px solid #dde4f0; text-align:right;">المتصرفون</td>
+                        <td style="padding:14px 12px; border:1px solid #dde4f0; font-weight:bold; font-size:18px; color:#e74c3c;">50</td>
+                        <td style="padding:14px 12px; border:1px solid #dde4f0; color:#666;">5.6%</td>
+                    </tr>
+                    <tr style="background:#f8faff;">
+                        <td style="padding:14px 12px; border:1px solid #dde4f0; text-align:right;">أعوان الأمن والحراسة</td>
+                        <td style="padding:14px 12px; border:1px solid #dde4f0; font-weight:bold; font-size:18px; color:#9b59b6;">20</td>
+                        <td style="padding:14px 12px; border:1px solid #dde4f0; color:#666;">2.3%</td>
+                    </tr>
+                    <tr style="background:#eef3fb;">
+                        <td style="padding:14px 12px; border:1px solid #dde4f0; text-align:right;">المدراء المركزيون</td>
+                        <td style="padding:14px 12px; border:1px solid #dde4f0; font-weight:bold; font-size:18px; color:#34495e;">20</td>
+                        <td style="padding:14px 12px; border:1px solid #dde4f0; color:#666;">2.3%</td>
+                    </tr>
+                    <tr style="background: linear-gradient(135deg, #185FA5, #2980b9); color:#fff; font-weight:bold;">
+                        <td style="padding:13px 12px; border:1px solid #1a6ab5; text-align:right;">الإجمالي العام</td>
+                        <td style="padding:13px 12px; border:1px solid #1a6ab5; font-size:20px;">890</td>
+                        <td style="padding:13px 12px; border:1px solid #1a6ab5;">100%</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        
+        <!-- الدائرة -->
+        <div class="panel" style="flex:1; min-width:300px;">
+            <h2>توزيع الفئات المستهدفة</h2>
+            <div class="chart-container" style="height:380px; display:flex; justify-content:center; align-items:center;">
+                <canvas id="targetCategoriesDoughnut"></canvas>
+            </div>
+        </div>
+    </div>
+    <script>
+        const ctxTarget = document.getElementById('targetCategoriesDoughnut').getContext('2d');
+        new Chart(ctxTarget, {
+            type: 'doughnut',
+            data: {
+                labels: [
+                    'مدراء المعاهد والمراكز والمقتصدون (50.5%)',
+                    'إداريو الإدارة المركزية (28.1%)',
+                    'رؤساء المكاتب (11.2%)',
+                    'المتصرفون (5.6%)',
+                    'أعوان الأمن والحراسة (2.3%)',
+                    'المدراء المركزيون (2.3%)'
+                ],
+                datasets: [{
+                    data: [450, 250, 100, 50, 20, 20],
+                    backgroundColor: ['#185FA5', '#1abc9c', '#e67e22', '#e74c3c', '#9b59b6', '#34495e'],
+                    borderWidth: 3,
+                    borderColor: '#fff',
+                    hoverOffset: 14
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                cutout: '55%',
+                plugins: {
+                    legend: {
+                        position: 'right', rtl: true,
+                        labels: { font: { size: 12, family: 'Segoe UI', weight: 'bold' }, padding: 12, usePointStyle: true, pointStyle: 'circle' }
+                    },
+                    tooltip: {
+                        rtl: true,
+                        callbacks: {
+                            label: function (ctx) {
+                                let total = 890;
+                                let pct = ((ctx.raw / total) * 100).toFixed(1);
+                                return ctx.raw + ' موظف (' + pct + '%)';
+                            }
+                        }
+                    }
+                }
+            }
+        });
+    </script>
+
+    <!-- جدول تصنيف المحاور والأهمية -->
+    <div class="panel" style="margin-top:25px; margin-bottom:40px; overflow-x:auto;">
+        <h2 style="text-align:center; font-size:20px; margin-bottom:16px;">تصنيف المحاور حسب الأهمية القصوى 2026</h2>
+        <table style="width:100%; border-collapse:collapse; font-family:'Segoe UI', sans-serif; font-size:14px; text-align:center; direction:rtl;">
+            <thead>
+                <tr style="background: linear-gradient(135deg, #185FA5, #2980b9); color:#fff;">
+                    <th style="padding:13px 16px; border:1px solid #1a6ab5;">تصنيف المحور</th>
+                    <th style="padding:13px 16px; border:1px solid #1a6ab5;">الدورات المرتبطة به</th>
+                    <th style="padding:13px 16px; border:1px solid #1a6ab5;">الأهمية</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr style="background:#f8faff;">
+                    <td style="padding:14px 16px; border:1px solid #dde4f0; font-weight:bold; color:#185FA5;">الرقمنة والتكنولوجيا</td>
+                    <td style="padding:14px 16px; border:1px solid #dde4f0; text-align:right;">الإعلام والرقمنة، الذكاء الاصطناعي +1</td>
+                    <td style="padding:14px 16px; border:1px solid #dde4f0; font-weight:bold; color:#e67e22;">مرتفعة</td>
+                </tr>
+                <tr style="background:#eef3fb;">
+                    <td style="padding:14px 16px; border:1px solid #dde4f0; font-weight:bold; color:#185FA5;">التسيير المالي والقانوني</td>
+                    <td style="padding:14px 16px; border:1px solid #dde4f0; text-align:right;">الميزانية (القانون 15-18)، التسيير المالي، تسيير الممتلكات</td>
+                    <td style="padding:14px 16px; border:1px solid #dde4f0; font-weight:bold; color:#e74c3c;">مرتفعة جداً</td>
+                </tr>
+                <tr style="background:#f8faff;">
+                    <td style="padding:14px 16px; border:1px solid #dde4f0; font-weight:bold; color:#185FA5;">التطوير الإداري والقيادي</td>
+                    <td style="padding:14px 16px; border:1px solid #dde4f0; text-align:right;">مناجمنت الموارد البشرية، إدارة فريق العمل، التسيير المبني على النتائج +4</td>
+                    <td style="padding:14px 16px; border:1px solid #dde4f0; font-weight:bold; color:#e67e22;">مرتفعة</td>
+                </tr>
+                <tr style="background:#eef3fb;">
+                    <td style="padding:14px 16px; border:1px solid #dde4f0; font-weight:bold; color:#185FA5;">اللغات والتواصل</td>
+                    <td style="padding:14px 16px; border:1px solid #dde4f0; text-align:right;">اللغة الإنجليزية، التواصل مع الزوار +4</td>
+                    <td style="padding:14px 16px; border:1px solid #dde4f0; font-weight:bold; color:#f1c40f;">متوسطة</td>
+                </tr>
+                <tr style="background:#f8faff;">
+                    <td style="padding:14px 16px; border:1px solid #dde4f0; font-weight:bold; color:#185FA5;">المقاولاتية والشراكة</td>
+                    <td style="padding:14px 16px; border:1px solid #dde4f0; text-align:right;">تطوير الشراكة، المقاولاتية +4</td>
+                    <td style="padding:14px 16px; border:1px solid #dde4f0; font-weight:bold; color:#f1c40f;">متوسطة</td>
+                </tr>
+            </tbody>
+        </table>
     </div>
 
 </body>
