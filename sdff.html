@@ -1,0 +1,973 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>لوحة تحليل مسابقة مدراء التكوين المهني 2026</title>
+
+    <style>
+        /* تنسيق أزرار التصفية */
+        .filter-tabs {
+            display: flex;
+            background: #eee;
+            padding: 5px;
+            border-radius: 10px;
+            gap: 5px;
+        }
+
+        /* New container for placing two charts side by side */
+        .chart-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            margin-top: 20px;
+        }
+
+        .chart-row .panel {
+            flex: 1;
+            min-width: 300px;
+        }
+
+
+
+        .tab-btn {
+            border: none;
+            padding: 8px 18px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            font-family: inherit;
+            transition: 0.3s;
+            background: transparent;
+            color: #666;
+        }
+
+        .tab-btn.active {
+            background: white;
+            color: var(--primary);
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        .badge-type {
+            font-size: 11px;
+            padding: 3px 8px;
+            border-radius: 5px;
+            font-weight: bold;
+        }
+
+        .type-insfp {
+            background: #f3e5f5;
+            color: #7b1fa2;
+        }
+
+        .type-cfpa {
+            background: #e3f2fd;
+            color: #1976d2;
+        }
+
+
+        :root {
+            --primary: #185FA5;
+            --secondary: #2c3e50;
+            --success: #27ae60;
+            --danger: #e74c3c;
+            --warning: #f39c12;
+            --light: #f4f7fa;
+            --white: #ffffff;
+            --shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
+
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: var(--light);
+            color: var(--secondary);
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1300px;
+            margin: 0 auto;
+        }
+
+        /* Header */
+        /* التنسيق المحدث للهيدر */
+        header {
+            background: var(--white);
+            padding: 20px 40px;
+            border-radius: 15px;
+            box-shadow: var(--shadow);
+            margin-bottom: 25px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            /* لتوزيع العناصر على الأطراف */
+            border-top: 6px solid var(--primary);
+            text-align: center;
+        }
+
+        .header-logo {
+            width: 100px;
+            /* حجم الشعار */
+            height: auto;
+        }
+
+        .header-center-content {
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .header-official h2 {
+            font-size: 18px;
+            color: var(--secondary);
+            margin: 0;
+            font-weight: 800;
+        }
+
+        .header-official h3 {
+            font-size: 16px;
+            color: var(--secondary);
+            margin: 0;
+            font-weight: bold;
+        }
+
+        .header-content h1 {
+            font-size: 22px;
+            color: var(--primary);
+            margin: 10px 0 5px 0;
+        }
+
+        /* تحسين التجاوب مع الشاشات الصغيرة */
+        @media (max-width: 768px) {
+            header {
+                flex-direction: column;
+                padding: 20px;
+            }
+
+            .header-logo {
+                width: 70px;
+                margin-bottom: 10px;
+            }
+        }
+
+        /* KPI Cards */
+        .kpi-row {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 15px;
+            margin-bottom: 25px;
+        }
+
+        .kpi-card {
+            background: var(--white);
+            padding: 20px;
+            border-radius: 12px;
+            box-shadow: var(--shadow);
+            text-align: center;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .kpi-card:hover {
+            transform: translateY(-5px);
+            border-bottom: 3px solid var(--primary);
+        }
+
+        .kpi-card label {
+            display: block;
+            font-size: 12px;
+            color: #95a5a6;
+            margin-bottom: 8px;
+            font-weight: bold;
+        }
+
+        .kpi-card span {
+            font-size: 30px;
+            font-weight: 800;
+            color: var(--primary);
+        }
+
+        /* Main Layout */
+        .main-grid {
+            display: grid;
+            grid-template-columns: 2fr 1.2fr;
+            gap: 20px;
+            margin-bottom: 25px;
+        }
+
+        .panel {
+            background: var(--white);
+            padding: 20px;
+            border-radius: 15px;
+            box-shadow: var(--shadow);
+        }
+
+        .panel h2 {
+            font-size: 16px;
+            margin-bottom: 20px;
+            padding-right: 12px;
+            border-right: 4px solid var(--primary);
+            color: var(--secondary);
+        }
+
+        /* Charts Height */
+        #mapdiv {
+            width: 100%;
+            height: 500px;
+        }
+
+        .chart-container {
+            height: 250px;
+            margin-bottom: 20px;
+        }
+
+        /* Table */
+        .table-container {
+            overflow-x: auto;
+            margin-top: 10px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            text-align: right;
+        }
+
+        th {
+            background: #f8fafc;
+            padding: 12px;
+            font-size: 13px;
+            color: #64748b;
+            border-bottom: 2px solid #edf2f7;
+        }
+
+        td {
+            padding: 12px;
+            border-bottom: 1px solid #edf2f7;
+            font-size: 14px;
+        }
+
+        .badge {
+            padding: 4px 10px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: bold;
+        }
+
+        .badge-m {
+            background: #e1effe;
+            color: #1e429f;
+        }
+
+        .badge-f {
+            background: #fde2e1;
+            color: #9b1c1c;
+        }
+
+        /* Modal (Popup) */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 2000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.6);
+            backdrop-filter: blur(5px);
+        }
+
+        .modal-content {
+            background: white;
+            margin: 5% auto;
+            padding: 25px;
+            border-radius: 15px;
+            width: 50%;
+            box-shadow: var(--shadow);
+            animation: slideDown 0.4s;
+        }
+
+        @keyframes slideDown {
+            from {
+                transform: translateY(-50px);
+                opacity: 0;
+            }
+
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        .close {
+            float: left;
+            font-size: 28px;
+            cursor: pointer;
+            color: #aaa;
+        }
+
+        .close:hover {
+            color: var(--danger);
+        }
+
+        @media (max-width: 900px) {
+            .main-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .modal-content {
+                width: 90%;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="container">
+        <header>
+            <img src="logo.jpeg" alt="شعار الوزارة" class="header-logo">
+
+            <div class="header-center-content">
+                <div class="header-official">
+                    <h2>الجمهورية الجزائرية الديمقراطية الشعبية</h2>
+                    <h3>وزارة التكوين والتعليم المهنيين</h3>
+                </div>
+                <div class="header-content">
+                    <h1>DRH مديرية الموارد البشرية</h1>
+
+                </div>
+            </div>
+
+            <img src="logo.jpeg" alt="شعار الوزارة" class="header-logo">
+        </header>
+
+        <div class="kpi-row">
+            <div class="kpi-card" style="border-right: 4px solid var(--primary);">
+                <label>إجمالي المؤسسات</label>
+                <span>1,730</span>
+            </div>
+            <div class="kpi-card" style="border-right: 4px solid #8e44ad;">
+                <label>إجمالي الموظفين</label>
+                <span style="color: #8e44ad;">82,049</span>
+            </div>
+            <div class="kpi-card" style="border-right: 4px solid #2980b9;">
+                <label>ذكور (55%)</label>
+                <span style="color: #2980b9;">45,106</span>
+            </div>
+            <div class="kpi-card" style="border-right: 4px solid #e74c3c;">
+                <label>إناث (45%)</label>
+                <span style="color: #e74c3c;">36,943</span>
+            </div>
+            <div class="kpi-card" style="border-right: 4px solid var(--warning);">
+                <label>ذوو الاحتياجات الخاصة</label>
+                <span style="color: var(--warning);">442</span>
+            </div>
+        </div>
+
+        <div class="filter-tabs"
+            style="margin-bottom: 25px; justify-content: center; padding: 10px; background: white; box-shadow: var(--shadow);">
+            <a href="index.html" class="tab-btn"
+                style="text-decoration: none; color: var(--secondary); font-size: 16px;">الرئيسية</a>
+            <a href="sdp.html" class="tab-btn"
+                style="text-decoration: none; color: var(--secondary); font-size: 16px;">المديرية الفرعية للمستخدمين</a>
+            <a href="sdff.html" class="tab-btn active" style="text-decoration: none; font-size: 16px;">المديرية الفرعية
+                لتكوين المكونين</a>
+            <a href="sdrp.html" class="tab-btn"
+                style="text-decoration: none; color: var(--secondary); font-size: 16px;">المديرية الفرعية لتجديد المعارف
+                وتحسين المستوى</a>
+        </div>
+    </div>
+
+    <!-- عدد الأساتذة المتكونين -->
+    <div class="panel" style="margin-top: 25px; margin-bottom: 20px;">
+        <h2>عدد الأساتذة المتكونين حسب التاريخ</h2>
+        <div class="main-grid" style="margin-top: 10px; gap: 20px; display: flex; justify-content: space-between;">
+            <div class="table-container" style="flex:1;">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>تاريخ التكوين حضوري</th>
+                            <th>الجزائر</th>
+                            <th>الوادي</th>
+                            <th>بشار</th>
+                            <th>غرداية</th>
+                            <th>قسنطينة</th>
+                            <th>وهران</th>
+                            <th>العدد الإجمالي</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>من 2026/04/11 الى 2026/04/13</td>
+                            <td>15</td>
+                            <td>15</td>
+                            <td>15</td>
+                            <td>17</td>
+                            <td>15</td>
+                            <td>15</td>
+                            <td>92</td>
+                        </tr>
+                        <tr>
+                            <td>من 2026/04/14 الى 2026/04/16</td>
+                            <td>15</td>
+                            <td>16</td>
+                            <td>15</td>
+                            <td>16</td>
+                            <td>15</td>
+                            <td>15</td>
+                            <td>92</td>
+                        </tr>
+                        <tr>
+                            <td>من 2026/04/18 الى 2026/04/20</td>
+                            <td>15</td>
+                            <td>15</td>
+                            <td>15</td>
+                            <td>16</td>
+                            <td>15</td>
+                            <td>15</td>
+                            <td>91</td>
+                        </tr>
+                        <tr>
+                            <td>من 2026/04/21 الى 2026/04/23</td>
+                            <td>15</td>
+                            <td>-</td>
+                            <td>-</td>
+                            <td>-</td>
+                            <td>15</td>
+                            <td>15</td>
+                            <td>45</td>
+                        </tr>
+                        <tr>
+                            <td>من 2026/04/25 الى 2026/04/27</td>
+                            <td>30</td>
+                            <td>-</td>
+                            <td>-</td>
+                            <td>-</td>
+                            <td>30</td>
+                            <td>30</td>
+                            <td>90</td>
+                        </tr>
+                        <tr>
+                            <td>من 2026/04/28 الى 2026/04/30</td>
+                            <td>15</td>
+                            <td>-</td>
+                            <td>-</td>
+                            <td>-</td>
+                            <td>30</td>
+                            <td>15</td>
+                            <td>60</td>
+                        </tr>
+                        <tr>
+                            <td>العدد الإجمالي</td>
+                            <td>105</td>
+                            <td>46</td>
+                            <td>45</td>
+                            <td>49</td>
+                            <td>120</td>
+                            <td>105</td>
+                            <td>470</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="chart-container"
+                style="flex:1; height:300px; display:flex; justify-content:center; align-items:center;">
+                <canvas id="teachersChart"></canvas>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-chart-treemap@2"></script>
+    <script>
+        const ctxT = document.getElementById('teachersChart').getContext('2d');
+        new Chart(ctxT, {
+            type: 'doughnut',
+            data: {
+                labels: ['الجزائر', 'الوادي', 'بشار', 'غرداية', 'قسنطينة', 'وهران'],
+                datasets: [{
+                    data: [105, 46, 45, 49, 120, 105],
+                    backgroundColor: ['#185FA5', '#1abc9c', '#3498db', '#e67e22', '#e74c3c', '#9b59b6'],
+                    borderWidth: 2,
+                    borderColor: '#fff'
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: { position: 'bottom', rtl: true },
+                    tooltip: { rtl: true, callbacks: { label: function (c) { let total = c.dataset.data.reduce((a, b) => a + b, 0); let p = ((c.raw / total) * 100).toFixed(1); return c.label + ': ' + c.raw + ' (' + p + '%)'; } } }
+                }
+            }
+        });
+    </script>
+
+
+    <div class="chart-row">
+        <div class="panel" style="margin-top:25px; margin-bottom:20px;">
+            <h2>عدد الأساتذة المتكونين حسب الولاية (مخطط أعمدة)</h2>
+            <div class="chart-container"
+                style="flex:1; height:300px; display:flex; justify-content:center; align-items:center;">
+                <canvas id="teachersBarChart"></canvas>
+            </div>
+        </div>
+        <script>
+            const ctxB = document.getElementById('teachersBarChart').getContext('2d');
+            new Chart(ctxB, {
+                type: 'bar',
+                data: {
+                    labels: ['الجزائر', 'الوادي', 'بشار', 'غرداية', 'قسنطينة', 'وهران'],
+                    datasets: [{
+                        label: 'عدد الأساتذة',
+                        data: [105, 46, 45, 49, 120, 105],
+                        backgroundColor: ['#185FA5', '#1abc9c', '#3498db', '#e67e22', '#e74c3c', '#9b59b6'],
+                        borderColor: '#fff',
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: { y: { beginAtZero: true } },
+                    plugins: { legend: { display: false }, tooltip: { rtl: true } }
+                }
+            });
+        </script>
+        <div class="panel" style="margin-top:25px; margin-bottom:20px;">
+            <h2>مخطط الأعمدة للمقارنة بين المعاهد</h2>
+            <div class="chart-container">
+                <canvas id="institutesBarChart"></canvas>
+            </div>
+        </div>
+        <script>
+            const ctxI = document.getElementById('institutesBarChart').getContext('2d');
+            new Chart(ctxI, {
+                type: 'bar',
+                data: {
+                    labels: ['بئر خادم', 'المدية', 'عنابة', 'سطيف', 'سيدي بلعباس', 'ورقلة'],
+                    datasets: [{
+                        label: 'إجمالي عدد المترشحين',
+                        data: [371, 509, 718, 757, 648, 324],
+                        backgroundColor: ['#185FA5', '#1abc9c', '#3498db', '#e67e22', '#e74c3c', '#9b59b6'],
+                        borderColor: '#fff',
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: { y: { beginAtZero: true } },
+                    plugins: { legend: { display: false }, tooltip: { rtl: true } }
+                }
+            });
+        </script>
+    </div>
+
+    <!-- دائرتان مثلثيتان في سطر واحد -->
+    <div class="chart-row" style="margin-top:25px; margin-bottom:20px;">
+        <div class="panel">
+            <h2>عدد الأساتذة المتربصين على حسب تخصصات المعاهد</h2>
+            <div class="chart-container" style="height:350px; display:flex; justify-content:center; align-items:center;">
+                <canvas id="teachersInstDoughnut"></canvas>
+            </div>
+        </div>
+        <div class="panel">
+            <h2>عدد و نسبة الأساتذة المتربصين حسب الشعب الخاصة بالمعهد</h2>
+            <div class="chart-container" style="height:350px; display:flex; justify-content:center; align-items:center;">
+                <canvas id="teachersSpecDoughnut"></canvas>
+            </div>
+        </div>
+    </div>
+    <script>
+        const ctxTID = document.getElementById('teachersInstDoughnut').getContext('2d');
+        new Chart(ctxTID, {
+            type: 'doughnut',
+            data: {
+                labels: ['معهد بئرخادم', 'معهد سطيف', 'معهد سيدي بلعباس', 'معهد عنابة', 'معهد ورقلة', 'معهد المدية'],
+                datasets: [{
+                    data: [1803, 548, 444, 197, 192, 137],
+                    backgroundColor: ['#185FA5', '#1abc9c', '#e74c3c', '#3498db', '#e67e22', '#9b59b6'],
+                    borderWidth: 2,
+                    borderColor: '#fff'
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: {
+                        position: 'bottom',
+                        rtl: true,
+                        labels: {
+                            font: { size: 13, family: 'Segoe UI' },
+                            padding: 15,
+                            usePointStyle: true,
+                            pointStyle: 'circle'
+                        }
+                    },
+                    tooltip: {
+                        rtl: true,
+                        callbacks: {
+                            label: function (context) {
+                                let total = context.dataset.data.reduce((a, b) => a + b, 0);
+                                let percentage = ((context.raw / total) * 100).toFixed(1);
+                                return context.label + ': ' + context.raw + ' (' + percentage + '%)';
+                            }
+                        }
+                    }
+                }
+            }
+        });
+
+        const ctxTSpec = document.getElementById('teachersSpecDoughnut').getContext('2d');
+        new Chart(ctxTSpec, {
+            type: 'doughnut',
+            data: {
+                labels: ['إعلام آلي- الرقمنة- الاتصالات', 'النسيج والألبسة', 'تقنيات الإدارة و التسيير', 'الفندقة - الإطعام و السياحة', 'مهن الخدمات', 'الحرف التقليدية', 'الكيمياء الصناعية والبلاستيك'],
+                datasets: [{
+                    data: [418, 405, 356, 285, 191, 128, 20],
+                    backgroundColor: ['#185FA5', '#1abc9c', '#e67e22', '#3498db', '#e74c3c', '#9b59b6', '#f39c12'],
+                    borderWidth: 2,
+                    borderColor: '#fff'
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: {
+                        position: 'bottom',
+                        rtl: true,
+                        labels: {
+                            font: { size: 12, family: 'Segoe UI' },
+                            padding: 12,
+                            usePointStyle: true,
+                            pointStyle: 'circle'
+                        }
+                    },
+                    tooltip: {
+                        rtl: true,
+                        callbacks: {
+                            label: function (context) {
+                                let total = context.dataset.data.reduce((a, b) => a + b, 0);
+                                let percentage = ((context.raw / total) * 100).toFixed(1);
+                                return context.label + ': ' + context.raw + ' (' + percentage + '%)';
+                            }
+                        }
+                    }
+                }
+            }
+        });
+    </script>
+
+    <!-- خريطة شجرية: مواضع تحسين المستوى -->
+    <div class="panel" style="margin-top:25px; margin-bottom:20px;">
+        <h2>خريطة شجرية لمواضع تحسين المستوى على مستوى موطني</h2>
+        <div style="height:500px; position:relative;">
+            <canvas id="treemapChart"></canvas>
+        </div>
+    </div>
+    <script>
+        const treemapData = [
+            { name: 'التسيير الاداري', value: 79 },
+            { name: 'الإعلام الآلي الرقمنة و الإتصالات INT', value: 57 },
+            { name: 'البيداغوجية العامة', value: 47 },
+            { name: 'البيداغوجية التطبيقية', value: 41 },
+            { name: 'الاتقان التقني', value: 39 },
+            { name: 'النشاطات التقنية البيداغوجية', value: 29 },
+            { name: 'الاعلام و التوجيه و الادماج المهني IOEIP', value: 29 },
+            { name: 'هندسة التكوين', value: 28 },
+            { name: 'مهن المياه و البيئة MEE', value: 26 },
+            { name: 'التسيير التقني البيداغوجي', value: 22 },
+            { name: 'الفلاحة AGR', value: 18 },
+            { name: 'النسيج و الألبسة THC', value: 12 },
+            { name: 'البناء و الاشغال العمومية BTP', value: 10 },
+            { name: 'اللغة الانجليزية', value: 7 },
+            { name: 'مهن الخدمات MES', value: 5 },
+            { name: 'تقنيات سمعي البصري TAV', value: 4 },
+            { name: 'الفندقة السياحة و الاطعام HRT', value: 4 },
+            { name: 'الكهرباء الالكترونية طاقاوية ELE', value: 3 },
+            { name: 'الصيد البحري و تربية المائيات PEC', value: 3 },
+            { name: 'صناعة الاغذية الزراعية IAA', value: 2 },
+            { name: 'الانشاءات الميكانيكية CMS', value: 2 },
+            { name: 'الفنون و الصناعة المطبعية AIG', value: 1 }
+        ];
+
+        const treemapColors = [
+            '#185FA5', '#1abc9c', '#2980b9', '#3498db',
+            '#e67e22', '#e74c3c', '#9b59b6', '#27ae60',
+            '#f39c12', '#16a085', '#c0392b', '#8e44ad',
+            '#2c3e50', '#d35400', '#1e8449', '#7d3c98',
+            '#2e86c1', '#cb4335', '#138d75', '#b7950b',
+            '#6c3483', '#1a5276'
+        ];
+
+        const ctxTree = document.getElementById('treemapChart').getContext('2d');
+        new Chart(ctxTree, {
+            type: 'treemap',
+            data: {
+                datasets: [{
+                    tree: treemapData,
+                    key: 'value',
+                    groups: ['name'],
+                    backgroundColor: function(ctx) {
+                        if (ctx.type !== 'data') return 'transparent';
+                        return treemapColors[ctx.dataIndex % treemapColors.length];
+                    },
+                    borderColor: '#fff',
+                    borderWidth: 2,
+                    spacing: 1,
+                    labels: {
+                        display: true,
+                        align: 'center',
+                        position: 'middle',
+                        overflow: 'hidden',
+                        color: '#fff',
+                        font: function(ctx) {
+                            var w = ctx.raw && ctx.raw.w || 0;
+                            var h = ctx.raw && ctx.raw.h || 0;
+                            var area = w * h;
+                            var s = Math.max(9, Math.min(16, Math.sqrt(area) / 6));
+                            return {
+                                size: s,
+                                weight: 'bold',
+                                family: 'Segoe UI'
+                            };
+                        },
+                        formatter: function(ctx) {
+                            if (ctx.raw && ctx.raw._data) {
+                                var w = ctx.raw.w || 0;
+                                var h = ctx.raw.h || 0;
+                                if (w < 60 || h < 30) return ctx.raw.v;
+                                if (w < 100 || h < 45) return ctx.raw._data.name.substring(0, 15) + '\n' + ctx.raw.v;
+                                return ctx.raw._data.name + '\n' + ctx.raw.v;
+                            }
+                            return '';
+                        }
+                    }
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: { display: false },
+                    tooltip: {
+                        rtl: true,
+                        callbacks: {
+                            title: function(items) {
+                                if (items.length && items[0].raw && items[0].raw._data) {
+                                    return items[0].raw._data.name;
+                                }
+                                return '';
+                            },
+                            label: function(context) {
+                                if (context.raw && context.raw._data) {
+                                    let total = treemapData.reduce((s, d) => s + d.value, 0);
+                                    let pct = ((context.raw.v / total) * 100).toFixed(1);
+                                    return 'العدد: ' + context.raw.v + ' (' + pct + '%)';
+                                }
+                                return '';
+                            }
+                        }
+                    }
+                }
+            }
+        });
+    </script>
+
+    <!-- التكوين التكميلي ماقبل الترقية دورة جانفي 2026 -->
+    <div class="panel" style="margin-top:25px; margin-bottom:20px;">
+        <h2>التكوين التكميلي ماقبل الترقية - دورة جانفي 2026</h2>
+        <div class="chart-container" style="height:350px; display:flex; justify-content:center; align-items:center;">
+            <canvas id="promotionDoughnut"></canvas>
+        </div>
+    </div>
+    <script>
+        const ctxPromo = document.getElementById('promotionDoughnut').getContext('2d');
+        new Chart(ctxPromo, {
+            type: 'doughnut',
+            data: {
+                labels: ['معهد بئرخادم', 'معهد سيدي بلعباس', 'معهد سطيف', 'معهد ورقلة', 'معهد عنابة', 'معهد المدية'],
+                datasets: [{
+                    data: [177, 54, 42, 22, 21, 7],
+                    backgroundColor: ['#185FA5', '#e74c3c', '#1abc9c', '#e67e22', '#3498db', '#9b59b6'],
+                    borderWidth: 2,
+                    borderColor: '#fff'
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: {
+                        position: 'bottom',
+                        rtl: true,
+                        labels: {
+                            font: { size: 13, family: 'Segoe UI' },
+                            padding: 15,
+                            usePointStyle: true,
+                            pointStyle: 'circle'
+                        }
+                    },
+                    tooltip: {
+                        rtl: true,
+                        callbacks: {
+                            label: function (context) {
+                                let total = context.dataset.data.reduce((a, b) => a + b, 0);
+                                let percentage = ((context.raw / total) * 100).toFixed(1);
+                                return context.label + ': ' + context.raw + ' (' + percentage + '%)';
+                            }
+                        }
+                    }
+                }
+            }
+        });
+    </script>
+
+    <!-- ملخص إحصائيات التكوين حسب مراكز الولايات -->
+    <div class="panel" style="margin-top:25px; margin-bottom:20px;">
+        <h2>ملخص إحصائيات التكوين حسب مراكز الولايات</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>مركز التكوين</th>
+                    <th>العدد الإجمالي للأساتذة</th>
+                    <th>عدد الدفعات/الأقسام</th>
+                    <th>الملاحظات</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>قسنطينة</td>
+                    <td>120</td>
+                    <td>8</td>
+                    <td>المركز الأكبر من حيث عدد المتكونين.</td>
+                </tr>
+                <tr>
+                    <td>الجزائر</td>
+                    <td>105</td>
+                    <td>7</td>
+                    <td>تشمل ولايات الوسط (البليدة، البويرة، المدية، إلخ).</td>
+                </tr>
+                <tr>
+                    <td>وهران</td>
+                    <td>105</td>
+                    <td>7</td>
+                    <td>تشمل ولايات الغرب (تلمسان، مستغانم، معسكر، إلخ).</td>
+                </tr>
+                <tr>
+                    <td>غرداية</td>
+                    <td>49</td>
+                    <td>3</td>
+                    <td>تشمل (الأغواط، الجلفة، تمنراست، إلخ).</td>
+                </tr>
+                <tr>
+                    <td>الوادي</td>
+                    <td>46</td>
+                    <td>3</td>
+                    <td>تشمل (بسكرة، أولاد جلال، جانت، إلخ).</td>
+                </tr>
+                <tr>
+                    <td>بشار</td>
+                    <td>45</td>
+                    <td>3</td>
+                    <td>تشمل (أدرار، تيميمون، بني عباس، إلخ).</td>
+                </tr>
+                <tr>
+                    <td>الإجمالي العام</td>
+                    <td>470</td>
+                    <td>31</td>
+                    <td>مجموع الأساتذة عبر الوطن.</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="panel" style="margin-top:25px; margin-bottom:20px;">
+        <h2>جدول الإحصاء الشامل للمراكز </h2>
+        <div class="table-container">
+            <table>
+                <thead>
+                    <tr>
+                        <th>المعهد (INSFP)</th>
+                        <th>الولايات التابعة</th>
+                        <th>العدد حسب الولاية</th>
+                        <th>العدد الكلي للمعهد</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>بئر خادم</td>
+                        <td>الجزائر، بومرداس، تندوف، تيبازة، تيزي وزو</td>
+                        <td>50، 106، 4، 101، 110</td>
+                        <td>371</td>
+                    </tr>
+                    <tr>
+                        <td>المدية</td>
+                        <td>البليدة، الجلفة، الشلف، المدية، تيسمسيلت، عين الدفلى، الأغواط، البويرة</td>
+                        <td>61، 47، 76، 38، 66، 60، 53، 108</td>
+                        <td>509</td>
+                    </tr>
+                    <tr>
+                        <td>عنابة</td>
+                        <td>الطارف، تبسة، خنشلة، سكيكدة، سوق أهراس، عنابة، قالمة، قسنطينة، أم البواقي</td>
+                        <td>66، 66، 86، 97، 106، 118، 76، 15، 88</td>
+                        <td>718</td>
+                    </tr>
+                    <tr>
+                        <td>سطيف</td>
+                        <td>المسيلة، أولاد جلال، باتنة، بجاية، برج بوعريريج، بسكرة، جيجل، سطيف، ميلة</td>
+                        <td>64، 17، 113، 125، 80، 100، 113، 89، 56</td>
+                        <td>757</td>
+                    </tr>
+                    <tr>
+                        <td>سيدي بلعباس</td>
+                        <td>البيض، النعامة، بشار، بني عباس، تلمسان، تيارت، سعيدة، سيدي بلعباس، عين تموشنت، غليزان،
+                            مستغانم، معسكر، وهران</td>
+                        <td>33، 38، 12، 16، 103، 97، 16، 47، 52، 68، 77، 59، 30</td>
+                        <td>648</td>
+                    </tr>
+                    <tr>
+                        <td>ورقلة</td>
+                        <td>أدرار، المغير، المنيعة، الوادي، إليزي، إن صالح، إن قزام، برج باجي مختار، تمنراست، تقرت،
+                            تيميمون، جانت، غرداية، ورقلة</td>
+                        <td>27، 36، 7، 54، 15، 12، 4، 5، 9، 50، 28، 5، 26، 46</td>
+                        <td>324</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    </div>
+
+
+
+
+
+
+
+
+
+    </div>
+
+</body>
+
+</html>
+
+
+
+</body>
+
+</html>
