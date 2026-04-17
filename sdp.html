@@ -2539,86 +2539,88 @@
             <h2>أهم المؤسسات من حيث تكرار المراسلات</h2>
             <div class="chart-container"
                 style="height:380px; display:flex; justify-content:center; align-items:center;">
-                <canvas id="institutionsDoughnut"></canvas>
+                <canvas id="topInstitutionsDoughnut"></canvas>
             </div>
         </div>
         <div class="panel" style="flex:1; min-width:300px;">
             <h2>توزيع المراسلات حسب نوع المؤسسة</h2>
             <div class="chart-container"
                 style="height:380px; display:flex; justify-content:center; align-items:center;">
-                <canvas id="instTypeDoughnut"></canvas>
+                <canvas id="correspondenceTypeDoughnut"></canvas>
             </div>
         </div>
     </div>
     <script>
-        const ctxInst = document.getElementById('institutionsDoughnut').getContext('2d');
-        new Chart(ctxInst, {
-            type: 'doughnut',
-            data: {
-                labels: ['الإدارة المركزية', 'CFPA الجزائر', 'CFPA عين الدفلى', 'INSFP سطيف', 'CFPA باتنة'],
-                datasets: [{
-                    data: [12, 10, 9, 8, 7],
-                    backgroundColor: ['#185FA5', '#1abc9c', '#e67e22', '#9b59b6', '#e74c3c'],
-                    borderWidth: 3,
-                    borderColor: '#fff',
-                    hoverOffset: 12
-                }]
-            },
-            options: {
-                responsive: true,
-                maintainAspectRatio: false,
-                plugins: {
-                    legend: {
-                        position: 'bottom', rtl: true,
-                        labels: { font: { size: 14, family: 'Segoe UI', weight: 'bold' }, padding: 20, usePointStyle: true, pointStyle: 'circle' }
-                    },
-                    tooltip: {
-                        rtl: true,
-                        callbacks: {
-                            label: function (ctx) {
-                                let total = ctx.dataset.data.reduce((a, b) => a + b, 0);
-                                let pct = ((ctx.raw / total) * 100).toFixed(1);
-                                return ctx.label + ': ' + ctx.raw + ' تكرار (' + pct + '%)';
+        document.addEventListener('DOMContentLoaded', function () {
+            const ctxTopInst = document.getElementById('topInstitutionsDoughnut').getContext('2d');
+            new Chart(ctxTopInst, {
+                type: 'doughnut',
+                data: {
+                    labels: ['الإدارة المركزية', 'CFPA الجزائر', 'CFPA عين الدفلى', 'INSFP سطيف', 'CFPA باتنة'],
+                    datasets: [{
+                        data: [12, 10, 9, 8, 7],
+                        backgroundColor: ['#185FA5', '#1abc9c', '#e67e22', '#9b59b6', '#e74c3c'],
+                        borderWidth: 3,
+                        borderColor: '#fff',
+                        hoverOffset: 12
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            position: 'bottom', rtl: true,
+                            labels: { font: { size: 14, family: 'Segoe UI', weight: 'bold' }, padding: 20, usePointStyle: true, pointStyle: 'circle' }
+                        },
+                        tooltip: {
+                            rtl: true,
+                            callbacks: {
+                                label: function (ctx) {
+                                    let total = ctx.dataset.data.reduce((a, b) => a + b, 0);
+                                    let pct = ((ctx.raw / total) * 100).toFixed(1);
+                                    return ctx.label + ': ' + ctx.raw + ' تكرار (' + pct + '%)';
+                                }
                             }
                         }
                     }
                 }
-            }
-        });
+            });
 
-        const ctxInstType = document.getElementById('instTypeDoughnut').getContext('2d');
-        new Chart(ctxInstType, {
-            type: 'doughnut',
-            data: {
-                labels: ['CFPA (مراكز)', 'INSFP (معاهد)', 'مديريات'],
-                datasets: [{
-                    data: [198, 72, 34],
-                    backgroundColor: ['#185FA5', '#1abc9c', '#e67e22'],
-                    borderWidth: 3,
-                    borderColor: '#fff',
-                    hoverOffset: 12
-                }]
-            },
-            options: {
-                responsive: true,
-                maintainAspectRatio: false,
-                plugins: {
-                    legend: {
-                        position: 'bottom', rtl: true,
-                        labels: { font: { size: 14, family: 'Segoe UI', weight: 'bold' }, padding: 20, usePointStyle: true, pointStyle: 'circle' }
-                    },
-                    tooltip: {
-                        rtl: true,
-                        callbacks: {
-                            label: function (ctx) {
-                                let total = ctx.dataset.data.reduce((a, b) => a + b, 0);
-                                let pct = ((ctx.raw / total) * 100).toFixed(1);
-                                return ctx.label + ': ' + ctx.raw + ' (' + pct + '%)';
+            const ctxCorrType = document.getElementById('correspondenceTypeDoughnut').getContext('2d');
+            new Chart(ctxCorrType, {
+                type: 'doughnut',
+                data: {
+                    labels: ['CFPA (مراكز)', 'INSFP (معاهد)', 'مديريات'],
+                    datasets: [{
+                        data: [198, 72, 34],
+                        backgroundColor: ['#185FA5', '#1abc9c', '#e67e22'],
+                        borderWidth: 3,
+                        borderColor: '#fff',
+                        hoverOffset: 12
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            position: 'bottom', rtl: true,
+                            labels: { font: { size: 14, family: 'Segoe UI', weight: 'bold' }, padding: 20, usePointStyle: true, pointStyle: 'circle' }
+                        },
+                        tooltip: {
+                            rtl: true,
+                            callbacks: {
+                                label: function (ctx) {
+                                    let total = ctx.dataset.data.reduce((a, b) => a + b, 0);
+                                    let pct = ((ctx.raw / total) * 100).toFixed(1);
+                                    return ctx.label + ': ' + ctx.raw + ' (' + pct + '%)';
+                                }
                             }
                         }
                     }
                 }
-            }
+            });
         });
     </script>
 
@@ -2635,14 +2637,12 @@
             <span>54</span>
         </div>
         <div class="kpi-card" style="border-right:4px solid #1abc9c;">
-            <label>عدد الإمضاءات</label>
-            <span style="color:#1abc9c;"> SDP</label>
-                <span style="color:#1abc9c;">43</span>
+            <label>إمضاءات SDP</label>
+            <span style="color:#1abc9c;">43</span>
         </div>
         <div class="kpi-card" style="border-right:4px solid #9b59b6;">
-            <label>عدد الإمضاءات</label>
-            <span style="color:#9b59b6;"> DRH</label>
-                <span style="color:#9b59b6;">11</span>
+            <label>إمضاءات DRH</label>
+            <span style="color:#9b59b6;">11</span>
         </div>
     </div>
 
