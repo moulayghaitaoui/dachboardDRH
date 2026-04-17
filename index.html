@@ -338,12 +338,50 @@
 
       
 
-        <div class="filter-tabs" style="margin-bottom: 25px; justify-content: center; padding: 10px; background: white; box-shadow: var(--shadow);">
-            <a href="index.html" class="tab-btn active" style="text-decoration: none; font-size: 16px;">الرئيسية</a>
-            <a href="sdp.html" class="tab-btn" style="text-decoration: none; color: var(--secondary); font-size: 16px;">المديرية الفرعية للمستخدمين</a>
-            <a href="sdff.html" class="tab-btn" style="text-decoration: none; color: var(--secondary); font-size: 16px;">المديرية الفرعية لتكوين المكونين</a>
-            <a href="sdrp.html" class="tab-btn" style="text-decoration: none; color: var(--secondary); font-size: 16px;">المديرية الفرعية لتجديد المعارف وتحسين المستوى</a>
-        </div>
+        <!-- أقسام مديرية الموارد البشرية - شبكة الأقسام الرئيسية -->
+        <div style="margin-top: 30px; margin-bottom: 40px;">
+            <h2 style="text-align: center; color: #185FA5; font-size: 26px; margin-bottom: 30px; position: relative;">
+                أقسام مديرية الموارد البشرية
+                <span style="display: block; width: 60px; height: 3px; background: #e67e22; margin: 10px auto;"></span>
+            </h2>
+            
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 25px;">
+                <!-- الرئيسية -->
+                <a href="index.html" style="text-decoration: none; display: block;">
+                    <div class="panel" style="text-align: center; padding: 30px; transition: all 0.3s ease; border-top: 5px solid #34495e; height: 100%; display: flex; flex-direction: column; align-items: center; justify-content: center; background: #fff; cursor: pointer;" onmouseover="this.style.transform='translateY(-10px)'; this.style.boxShadow='0 15px 30px rgba(0,0,0,0.15)';" onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='var(--shadow)';">
+                        <div style="width: 70px; height: 70px; background: #f0f4f8; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin-bottom: 20px; font-size: 30px; color: #34495e;">🏠</div>
+                        <h3 style="color: #2c3e50; font-size: 18px; margin-bottom: 10px;">الرئيسية</h3>
+                        <p style="color: #7f8c8d; font-size: 13px; line-height: 1.5;">ملخص عام للإحصائيات والمؤشرات الكلية للقطاع والوزارة.</p>
+                    </div>
+                </a>
+
+                <!-- المستخدمين -->
+                <a href="sdp.html" style="text-decoration: none; display: block;">
+                    <div class="panel" style="text-align: center; padding: 30px; transition: all 0.3s ease; border-top: 5px solid #185FA5; height: 100%; display: flex; flex-direction: column; align-items: center; justify-content: center; background: #fff; cursor: pointer;" onmouseover="this.style.transform='translateY(-10px)'; this.style.boxShadow='0 15px 30px rgba(0,0,0,0.15)';" onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='var(--shadow)';">
+                        <div style="width: 70px; height: 70px; background: #e3f2fd; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin-bottom: 20px; font-size: 30px; color: #185FA5;">👥</div>
+                        <h3 style="color: #2c3e50; font-size: 18px; margin-bottom: 10px;">المديرية الفرعية للمستخدمين</h3>
+                        <p style="color: #7f8c8d; font-size: 13px; line-height: 1.5;">تسيير المسارات المهنية، العرائض، والوضعية القانونية للموظفين.</p>
+                    </div>
+                </a>
+
+                <!-- تكوين المكونين -->
+                <a href="sdff.html" style="text-decoration: none; display: block;">
+                    <div class="panel" style="text-align: center; padding: 30px; transition: all 0.3s ease; border-top: 5px solid #27ae60; height: 100%; display: flex; flex-direction: column; align-items: center; justify-content: center; background: #fff; cursor: pointer;" onmouseover="this.style.transform='translateY(-10px)'; this.style.boxShadow='0 15px 30px rgba(0,0,0,0.15)';" onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='var(--shadow)';">
+                        <div style="width: 70px; height: 70px; background: #e8f5e9; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin-bottom: 20px; font-size: 30px; color: #27ae60;">🎓</div>
+                        <h3 style="color: #2c3e50; font-size: 18px; margin-bottom: 10px;">المديرية الفرعية لتكوين المكونين</h3>
+                        <p style="color: #7f8c8d; font-size: 13px; line-height: 1.5;">برامج التكوين التكميلي، الترقية، وتطوير مهارات كادر القطاع.</p>
+                    </div>
+                </a>
+
+                <!-- تجديد المعارف -->
+                <a href="sdrp.html" style="text-decoration: none; display: block;">
+                    <div class="panel" style="text-align: center; padding: 30px; transition: all 0.3s ease; border-top: 5px solid #f39c12; height: 100%; display: flex; flex-direction: column; align-items: center; justify-content: center; background: #fff; cursor: pointer;" onmouseover="this.style.transform='translateY(-10px)'; this.style.boxShadow='0 15px 30px rgba(0,0,0,0.15)';" onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='var(--shadow)';">
+                        <div style="width: 70px; height: 70px; background: #fff3e0; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin-bottom: 20px; font-size: 30px; color: #f39c12;">📈</div>
+                        <h3 style="color: #2c3e50; font-size: 18px; margin-bottom: 10px;">المديرية الفرعية لتجديد المعارف</h3>
+                        <p style="color: #7f8c8d; font-size: 13px; line-height: 1.5;">تحسين المستوى، تجديد الخبرات، وخطط التدريب قصيرة المدى.</p>
+                    </div>
+                </a>
+            </div>
         </div>
 
   <div class="kpi-row">
@@ -377,12 +415,42 @@
 
     </div>
 
+    <!-- زر العودة للأعلى -->
+    <button id="backToTop" title="العودة للأعلى" style="
+        display: none;
+        position: fixed;
+        bottom: 30px;
+        right: 30px;
+        z-index: 1000;
+        width: 50px;
+        height: 50px;
+        background: linear-gradient(135deg, #185FA5, #2980b9);
+        color: white;
+        border: none;
+        border-radius: 50%;
+        cursor: pointer;
+        box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+        transition: all 0.3s ease;
+        font-size: 24px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    ">
+        ↑
+    </button>
+
+    <script>
+        const backToTopBtn = document.getElementById('backToTop');
+        window.onscroll = function() {
+            if (document.body.scrollTop > 500 || document.documentElement.scrollTop > 500) {
+                backToTopBtn.style.display = "flex";
+            } else {
+                backToTopBtn.style.display = "none";
+            }
+        };
+        backToTopBtn.onclick = function() {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        };
+    </script>
 </body>
-
-</html>
-
-
-
-</body>
-
 </html>
