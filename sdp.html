@@ -2694,8 +2694,8 @@
             <span>1500</span>
         </div>
         <div class="kpi-card" style="border-right:4px solid #1abc9c;">
-            <label>عدد العرائض</label>
-            <span style="color:#1abc9c;">214</span>
+            <label>عدد العرائض شهريا</label>
+            <span style="color:#1abc9c;">250</span>
         </div>
 
     </div>
@@ -2727,145 +2727,8 @@
     </div>
 
     <!-- دائرة + أعمدة شهرية في سطر واحد 2026 -->
-    <div style="display:flex; flex-wrap:wrap; gap:20px; margin-bottom:30px;">
-        <div class="panel" style="flex:1; min-width:300px;">
-            <h2>توزيع المراسلات 2026 (SDP / DRH)</h2>
-            <div class="chart-container"
-                style="height:350px; display:flex; justify-content:center; align-items:center;">
-                <canvas id="sdpDrhDoughnut2026"></canvas>
-            </div>
-        </div>
-        <div class="panel" style="flex:1; min-width:300px;">
-            <h2>المراسلات حسب الشهر 2026</h2>
-            <div class="chart-container" style="height:350px;">
-                <canvas id="monthlyBar2026"></canvas>
-            </div>
-        </div>
-    </div>
-    <script>
-        const ctxSdpDrh = document.getElementById('sdpDrhDoughnut2026').getContext('2d');
-        new Chart(ctxSdpDrh, {
-            type: 'doughnut',
-            data: {
-                labels: ['SDP', 'DRH'],
-                datasets: [{
-                    data: [43, 11],
-                    backgroundColor: ['#185FA5', '#9b59b6'],
-                    borderWidth: 3,
-                    borderColor: '#fff',
-                    hoverOffset: 12
-                }]
-            },
-            options: {
-                responsive: true,
-                maintainAspectRatio: false,
-                plugins: {
-                    legend: {
-                        position: 'bottom', rtl: true,
-                        labels: { font: { size: 15, family: 'Segoe UI', weight: 'bold' }, padding: 20, usePointStyle: true, pointStyle: 'circle' }
-                    },
-                    tooltip: {
-                        rtl: true,
-                        callbacks: {
-                            label: function (ctx) {
-                                let pct = ((ctx.raw / 54) * 100).toFixed(1);
-                                return ctx.label + ': ' + ctx.raw + ' (' + pct + '%)';
-                            }
-                        }
-                    }
-                }
-            }
-        });
 
-        const ctxMonthly = document.getElementById('monthlyBar2026').getContext('2d');
-        new Chart(ctxMonthly, {
-            type: 'bar',
-            data: {
-                labels: ['جانفي 2026', 'فيفري 2026', 'مارس 2026', 'أفريل 2026'],
-                datasets: [{
-                    label: 'عدد المراسلات',
-                    data: [20, 28, 4, 2],
-                    backgroundColor: ['#185FA5', '#1abc9c', '#e67e22', '#e74c3c'],
-                    borderColor: '#fff',
-                    borderWidth: 1,
-                    borderRadius: 8
-                }]
-            },
-            options: {
-                responsive: true,
-                maintainAspectRatio: false,
-                scales: {
-                    x: { grid: { display: false } },
-                    y: {
-                        beginAtZero: true,
-                        grid: { color: '#f0f0f0' },
-                        ticks: { stepSize: 5 },
-                        title: { display: true, text: 'العدد', font: { size: 13 } }
-                    }
-                },
-                plugins: {
-                    legend: { display: false },
-                    tooltip: {
-                        rtl: true,
-                        callbacks: {
-                            label: function (ctx) {
-                                let pct = ((ctx.raw / 54) * 100).toFixed(1);
-                                return 'عدد المراسلات: ' + ctx.raw + ' (' + pct + '%)';
-                            }
-                        }
-                    }
-                }
-            }
-        });
-    </script>
 
-    <!-- دائرة مثلثية: أداء المكلفين 2026 -->
-    <div class="panel" style="margin-top:25px; margin-bottom:30px;">
-        <h2>أداء المكلفين - نسبة الرد 2026</h2>
-        <div class="chart-container" style="height:380px; display:flex; justify-content:center; align-items:center;">
-            <canvas id="agentPerformanceDoughnut"></canvas>
-        </div>
-    </div>
-    <script>
-        const ctxPerf = document.getElementById('agentPerformanceDoughnut').getContext('2d');
-        new Chart(ctxPerf, {
-            type: 'doughnut',
-            data: {
-                labels: ['مقرني (5%)', 'سعدي (8%)', 'زماتي (30%)', 'دقي (22%)', 'بوسنة (33%)'],
-                datasets: [{
-                    data: [5, 8, 30, 22, 33],
-                    backgroundColor: ['#e74c3c', '#e67e22', '#1abc9c', '#3498db', '#27ae60'],
-                    borderWidth: 3,
-                    borderColor: '#fff',
-                    hoverOffset: 14
-                }]
-            },
-            options: {
-                responsive: true,
-                maintainAspectRatio: false,
-                plugins: {
-                    legend: {
-                        position: 'bottom',
-                        rtl: true,
-                        labels: {
-                            font: { size: 14, family: 'Segoe UI', weight: 'bold' },
-                            padding: 20,
-                            usePointStyle: true,
-                            pointStyle: 'circle'
-                        }
-                    },
-                    tooltip: {
-                        rtl: true,
-                        callbacks: {
-                            label: function (ctx) {
-                                return ctx.label + ' من إجمالي الردود';
-                            }
-                        }
-                    }
-                }
-            }
-        });
-    </script>
     <!-- إحصاء وضعية الأشخاص ذوي الإحتياجات الخاصة -->
     <div class="panel"
         style="margin-top:40px; margin-bottom:20px; background: linear-gradient(135deg, #185FA5, #2980b9); border-radius:12px; text-align:center;">
