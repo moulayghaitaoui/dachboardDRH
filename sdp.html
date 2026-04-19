@@ -1467,16 +1467,34 @@
                             771</td>
                     </tr>
                     <tr style="background:#eef3fb;">
-                        <td style="padding:10px; border:1px solid #dde4f0;">مؤسسات وطنية أخرى (إدارة، هندسة، الخ)</td>
-                        <td
-                            style="padding:10px; border:1px solid #dde4f0; text-align:center; font-weight:bold; color:#185FA5;">
-                            43</td>
+                        <td style="padding:10px; border:1px solid #dde4f0;">معاهد التعليم المهني</td>
+                        <td style="padding:10px; border:1px solid #dde4f0; text-align:center; font-weight:bold; color:#185FA5;">18</td>
+                    </tr>
+                    <tr style="background:#f8faff;">
+                        <td style="padding:10px; border:1px solid #dde4f0;">معاهد التكوين والتعليم المهنيين</td>
+                        <td style="padding:10px; border:1px solid #dde4f0; text-align:center; font-weight:bold; color:#185FA5;">06</td>
+                    </tr>
+                    <tr style="background:#eef3fb;">
+                        <td style="padding:10px; border:1px solid #dde4f0;">المعهد الوطني للتكوين والتعليم المهنيين بالأبيار</td>
+                        <td style="padding:10px; border:1px solid #dde4f0; text-align:center; font-weight:bold; color:#185FA5;">01</td>
+                    </tr>
+                    <tr style="background:#f8faff;">
+                        <td style="padding:10px; border:1px solid #dde4f0;">مركز التكوين والتعليم المهنيين عن بعد</td>
+                        <td style="padding:10px; border:1px solid #dde4f0; text-align:center; font-weight:bold; color:#185FA5;">01</td>
+                    </tr>
+                    <tr style="background:#eef3fb;">
+                        <td style="padding:10px; border:1px solid #dde4f0;">المؤسسة الوطنية للتجهيزات التقنية والبيداغوجية</td>
+                        <td style="padding:10px; border:1px solid #dde4f0; text-align:center; font-weight:bold; color:#185FA5;">01</td>
+                    </tr>
+                    <tr style="background:#f8faff;">
+                        <td style="padding:10px; border:1px solid #dde4f0;">الديوان الوطني (ONDEFBC)</td>
+                        <td style="padding:10px; border:1px solid #dde4f0; text-align:center; font-weight:bold; color:#185FA5;">01</td>
                     </tr>
                 </tbody>
                 <tfoot>
                     <tr style="background: linear-gradient(135deg, #185FA5, #2980b9); color:#fff; font-weight:bold;">
                         <td style="padding:12px; border:1px solid #1a6ab5;">إجمالي المؤسسات</td>
-                        <td style="padding:12px; border:1px solid #1a6ab5; text-align:center; font-size:16px;">1,851
+                        <td style="padding:12px; border:1px solid #1a6ab5; text-align:center; font-size:16px;">1,836
                         </td>
                     </tr>
                 </tfoot>
@@ -1499,10 +1517,10 @@
             new Chart(ctxInsts, {
                 type: 'doughnut',
                 data: {
-                    labels: ['مراكز CFPA', 'المعاهد INSFP', 'المعاهد الخاصة', 'مؤسسات أخرى'],
+                    labels: ['مراكز CFPA (855)', 'المعاهد INSFP (182)', 'المعاهد الخاصة (771)', 'معاهد التعليم المهني (18)', 'معاهد التكوين والتعليم (06)', 'المعهد الوطني الأبيار (01)', 'مركز التكوين عن بعد (01)', 'المؤسسة الوطنية للتجهيزات (01)', 'الديوان الوطني ONDEFBC (01)'],
                     datasets: [{
-                        data: [855, 182, 771, 43],
-                        backgroundColor: ['#3498db', '#9b59b6', '#e67e22', '#95a5a6'],
+                        data: [855, 182, 771, 18, 6, 1, 1, 1, 1],
+                        backgroundColor: ['#3498db', '#9b59b6', '#e67e22', '#27ae60', '#e74c3c', '#f39c12', '#1abc9c', '#2c3e50', '#8e44ad'],
                         borderWidth: 2,
                         borderColor: '#fff'
                     }]
