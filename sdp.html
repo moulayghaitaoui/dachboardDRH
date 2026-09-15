@@ -313,6 +313,42 @@
                 width: 90%;
             }
         }
+
+        @media print {
+            body {
+                background: white;
+                padding: 0;
+                margin: 0;
+            }
+            .container {
+                max-width: 100%;
+                margin: 0;
+                padding: 0;
+            }
+            .panel {
+                box-shadow: none !important;
+                page-break-inside: avoid;
+                break-inside: avoid;
+                border: 1px solid #eee;
+                margin-bottom: 20px !important;
+            }
+            header {
+                box-shadow: none !important;
+                border: 1px solid #eee;
+                margin-bottom: 20px;
+                page-break-inside: avoid;
+            }
+            .hide-on-print, a > .panel, button {
+                display: none !important;
+            }
+            canvas {
+                max-width: 100% !important;
+            }
+            * {
+                -webkit-print-color-adjust: exact !important;
+                print-color-adjust: exact !important;
+            }
+        }
     </style>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
@@ -320,6 +356,11 @@
 <body>
 
     <div class="container">
+        <div style="text-align: left; margin-bottom: 15px;" class="hide-on-print">
+            <button onclick="window.print()" style="background: #185FA5; color: white; border: none; padding: 12px 24px; border-radius: 8px; font-weight: bold; cursor: pointer; font-size: 16px; font-family: inherit; box-shadow: 0 4px 10px rgba(0,0,0,0.1); transition: 0.3s;">
+                🖨️ طباعة الصفحة (PDF)
+            </button>
+        </div>
         <header>
             <img src="logo.jpeg" alt="شعار الوزارة" class="header-logo">
 
